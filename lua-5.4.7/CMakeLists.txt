@@ -57,6 +57,7 @@ if(LUA_ENABLE_SHARED)
     target_link_libraries(lua_shared PRIVATE lua_internal PUBLIC lua_include)
     set_target_properties(lua_shared PROPERTIES
         VERSION "${PACKAGE_VERSION}"
+        OUTPUT_NAME "lua54"
     )
     if(WIN32)
         target_compile_definitions(lua_shared PRIVATE LUA_BUILD_AS_DLL)
@@ -75,6 +76,7 @@ add_library(lua_static STATIC ${LUA_LIB_SRCS})
 target_link_libraries(lua_static PRIVATE lua_internal PUBLIC lua_include)
 set_target_properties(lua_static PROPERTIES
     VERSION "${PACKAGE_VERSION}"
+    OUTPUT_NAME "lua54"
 )
 list(APPEND TARGETS_TO_INSTALL lua_static)
 if(NOT BUILD_SHARED_LIBS OR NOT LUA_ENABLE_SHARED)
@@ -106,7 +108,7 @@ if(UNIX)
 	target_compile_options(lua_internal
 		INTERFACE "-Wall" "-Wextra"
 	)
-elseif(Win32)
+elseif(WIN32)
     target_compile_options(lua_internal
 		INTERFACE "/Wall"
 	)
@@ -121,6 +123,7 @@ if(LUA_BUILD_BINARY)
     target_link_libraries(lua PRIVATE lua_static)
     set_target_properties(lua PROPERTIES 
         RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}
+        OUTPUT_NAME "lua54"
     )
     if (HAVE_READLINE_READLINE_H)
         target_compile_definitions(lua PRIVATE "LUA_USE_READLINE")
@@ -134,6 +137,7 @@ if(LUA_BUILD_COMPILER)
     target_link_libraries(luac PRIVATE lua_static)
     set_target_properties(luac PROPERTIES 
         RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}
+        OUTPUT_NAME "luac54"
     )
     list(APPEND TARGETS_TO_INSTALL luac)
 endif()
